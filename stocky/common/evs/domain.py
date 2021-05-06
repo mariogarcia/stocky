@@ -2,30 +2,31 @@ from uuid import uuid4
 from eventsourcing.domain import Aggregate, AggregateCreated, AggregateEvent
 
 class Account(Aggregate):
-    def __init__(self):        
-        self.name: str = ""
+    def __init__(self, full_name: str):
+        self.full_name: str = full_name
         self.balance: float = 0
 
     class Created(AggregateCreated):
-        pass
+        full_name: str
 
     class Deposit(AggregateEvent):
-        def apply(self, account):
-            account.balance += 10000
+        deposit: float = 0
+
+        def apply(self, aggregate: "Account") -> None:
+            aggregate.balance += self.deposit
 
     class Withdrawal(AggregateEvent):
-        def __init__(self):
-            self.withdrawal: float
+        withdrawal: float = 0
 
-        def apply(self, account):
-            account.balance -= self.withdrawal
+        def apply(self, aggregate: "Account") -> None:
+            aggregate.balance -= self.withdrawal
 
     @classmethod
-    def create(cls, name: str):
-        return cls._create(cls.Created, id=uuid4())
+    def create(cls, full_name: str):
+        return cls._create(cls.Created, id=uuid4(), full_name=full_name)
 
     def deposit(self, deposit: float):
-        self.trigger_event(self.Deposit)
+        self.trigger_event(self.Deposit, deposit=deposit)
 
     def withdrawal(self, withdrawal: float):
         self.trigger_event(self.Withdrawal, withdrawal=withdrawal)

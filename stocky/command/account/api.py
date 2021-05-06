@@ -8,22 +8,22 @@ from stocky.command.account.payloads import (CreateAccountPayload, DepositPayloa
 router = APIRouter()
 
 @router.post("/account")
-async def create_account(info: CreateAccountPayload):
+async def create_account(payload: CreateAccountPayload):
     '''
     creates a new account
     '''
-    return accounts.create_account(info.name)
+    return accounts.create_account(payload.name)
 
 @router.post("/account/{id}/deposit")
-async def deposit(id: str, deposit: DepositPayload):
+async def deposit(id: str, payload: DepositPayload):
     '''
     adds a deposit in a specific account
     '''
-    accounts.deposit(id, deposit=deposit)
+    accounts.deposit(id, amount=payload.amount)
 
-@router.post("account/{id}/withdrawal")
-async def withdrawal(withdrawal: WithdrawalPayload):
+@router.post("/account/{id}/withdrawal")
+async def withdrawal(id: str, payload: WithdrawalPayload):
     '''
     does a withdrawal from a specific account
     '''
-    accounts.withdrawal(withdrawal)
+    accounts.withdrawal(id, amount=payload.amount)
