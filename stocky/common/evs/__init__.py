@@ -1,6 +1,5 @@
 from eventsourcing.system import System, SingleThreadedRunner
-from stocky.account.evs.application import AccountApplication, Counters
-
+from stocky.common.evs.application import AccountApplication, Counters
 
 # init
 system = System(pipes=[[AccountApplication, Counters]])

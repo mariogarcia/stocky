@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from stocky.api import api_router
-from stocky.config import setup_event_sourcing
+from stocky.common.config import setup_event_sourcing
 
 setup_event_sourcing()
 

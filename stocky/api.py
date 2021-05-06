@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from stocky.account.command.api import router as account_capi
-from stocky.account.query.api import router as account_qapi
+from stocky.command.account.api import router as account_capi
+from stocky.query.account.api import router as account_qapi
 
 api_router = APIRouter()
 

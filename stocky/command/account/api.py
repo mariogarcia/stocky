@@ -1,9 +1,9 @@
 from fastapi import APIRouter, BackgroundTasks
 
-from stocky.account.evs import accounts
-from stocky.account.evs.application import AccountApplication
-from stocky.account.command.producer import account_producer
-from stocky.account.command.payloads import (CreateAccountPayload, DepositPayload, WithdrawalPayload)
+from stocky.common.evs import accounts
+from stocky.common.evs.application import AccountApplication
+from stocky.command.account.producer import account_producer
+from stocky.command.account.payloads import (CreateAccountPayload, DepositPayload, WithdrawalPayload)
 
 # router for account-related URIs
 router = APIRouter()

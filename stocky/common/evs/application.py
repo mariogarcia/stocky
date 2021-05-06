@@ -1,5 +1,5 @@
 from eventsourcing.application import Application
-from stocky.account.evs.domain import Account
+from stocky.common.evs.domain import Account
 
 class AccountApplication(Application):
     def create_account(self, name: str):

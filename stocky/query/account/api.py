@@ -1,6 +1,6 @@
 import uuid
 from fastapi import APIRouter
-from stocky.account.evs import accounts
+from stocky.common.evs import accounts
 
 router = APIRouter()
 
