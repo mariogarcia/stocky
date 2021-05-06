@@ -1,3 +1,4 @@
+from uuid import UUID
 from eventsourcing.application import Application
 from stocky.common.evs.domain import Account
 
@@ -7,8 +8,8 @@ class AccountApplication(Application):
         self.save(account)
         return account.id
 
-    def deposit(self, id, deposit: float):
-        account = self.repository.get(id)
+    def deposit(self, id: str, deposit: float):
+        account = self.repository.get(UUID(id))
         account.deposit(deposit)
         self.save(account)
 
@@ -19,6 +20,10 @@ class AccountApplication(Application):
 
     def info(self, id: str):        
         return self.repository.get(id)
+
+    def notify(self, events):
+        for event in events:
+            print("producing totally!!!!", event)
         
 from eventsourcing.application import AggregateNotFound
 from eventsourcing.system import ProcessApplication

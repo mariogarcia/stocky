@@ -14,5 +14,7 @@ def setup_event_sourcing():
     os.environ['COMPRESSOR_TOPIC'] = 'eventsourcing.compressor:ZlibCompressor'
 
     # Use SQLite infrastructure.
+    os.environ['CREATE_TABLE'] = 'true'
     os.environ['INFRASTRUCTURE_FACTORY'] = 'eventsourcing.sqlite:Factory'
-    os.environ['SQLITE_DBNAME'] = ':memory:'  # Or path to a file on disk.
+    os.environ['SQLITE_DBNAME'] = 'file:/tmp/stocky.db'  # Or path to a file on disk.
+  

@@ -1,31 +1,27 @@
-from fastapi import APIRouter, BackgroundTasks
+from fastapi import APIRouter
 
 from stocky.common.evs import accounts
 from stocky.common.evs.application import AccountApplication
-from stocky.command.account.producer import account_producer
 from stocky.command.account.payloads import (CreateAccountPayload, DepositPayload, WithdrawalPayload)
 
 # router for account-related URIs
 router = APIRouter()
 
 @router.post("/account")
-@account_producer(accounts)
-async def create_account(info: CreateAccountPayload, tasks: BackgroundTasks):
+async def create_account(info: CreateAccountPayload):
     '''
     creates a new account
     '''
     return accounts.create_account(info.name)
 
 @router.post("/account/{id}/deposit")
-@account_producer(accounts)
-async def deposit(deposit: DepositPayload):
+async def deposit(id: str, deposit: DepositPayload):
     '''
     adds a deposit in a specific account
     '''
-    accounts.deposit(deposit)
+    accounts.deposit(id, deposit=deposit)
 
 @router.post("account/{id}/withdrawal")
-@account_producer(accounts)
 async def withdrawal(withdrawal: WithdrawalPayload):
     '''
     does a withdrawal from a specific account
