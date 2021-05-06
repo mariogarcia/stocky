@@ -6,8 +6,9 @@ from eventsourcing.dispatch import singledispatchmethod
 from eventsourcing.system import Follower, Leader, Promptable, ProcessApplication
 
 from stocky.common.evs.domain import Account
+from stocky.common.evs.producer import create_account, update_account
 
-class AccountApplication(Leader, Application, ABC):
+class AccountApplication(Leader, Application):
     def create_account(self, name: str):
         '''
         creates a new account with the name of the holder
@@ -42,8 +43,8 @@ class AccountApplication(Leader, Application, ABC):
 class AccountApplicationProducer(ProcessApplication, Promptable):
     @singledispatchmethod
     def policy(self, domain_event, process_event):
-        """Default policy"""
-        print("could be used as a producer")
-
+        account = self.repository.get(domain_event.originator_id)
+        update_account(account)
+        
     def receive_prompt(self, name: str):
         print("used for simple metrics, not so useful")
