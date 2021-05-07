@@ -1,12 +1,11 @@
-from abc import ABC
 from uuid import UUID
 
 from eventsourcing.application import Application
 from eventsourcing.dispatch import singledispatchmethod
 from eventsourcing.system import Follower, Leader, Promptable, ProcessApplication
 
-from stocky.common.evs.domain import Account
-from stocky.common.evs.producer import create_account, update_account
+from stocky.command.account.domain import Account
+from stocky.command.account.producer import create_account, update_account
 
 class AccountApplication(Leader, Application):
     def create_account(self, name: str):
