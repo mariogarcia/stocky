@@ -53,3 +53,7 @@ Of course that doesn't come free, the cost is **eventual consistency**. The writ
 You can start by designing your Python's modules with a clear separation and isolation. In other words everything inside the command modules can't have any dependency with the query modules and viceversa. Later on that will enable you to convert those models in different deployable applications.
 
 Of course there could be some modules that can be considered common to both command/query, like utility classes, or boilerplate code that is always used in both modules. As a rule of thumb, remember that **everything that can be considered part of the business logic, that must remain confined, and never shared**.
+
+## Conclusions
+
+TODO
